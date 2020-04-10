@@ -1,2 +1,2 @@
 run:
-	go run bin/api/main.go
+	go run cmd/api/main.go

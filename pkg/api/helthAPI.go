@@ -6,12 +6,12 @@ import (
 )
 
 type payload struct {
-	message string `json:"message"`
+	Message string `json:"message"`
 }
 
 func (api *API) healthAPI(w http.ResponseWriter, r *http.Request) {
 	m := &payload{
-		message: "DistanceED rest api",
+		Message: "DistanceED rest api",
 	}
 
 	w.Header().Set("Content-Type", "application/json")
