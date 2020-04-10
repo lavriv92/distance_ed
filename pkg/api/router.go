@@ -1,6 +1,5 @@
 package api
 
-//Routes application routes
-func (a *API) Routes() {
-
+func (api *API) setupRoutes() {
+	api.router.HandleFunc("/", api.healthAPI)
 }

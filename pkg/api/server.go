@@ -1,17 +1,25 @@
 package api
 
 import (
+	"net/http"
+
 	"github.com/gorilla/mux"
 )
 
 //API application api
 type API struct {
-	Server *mux.Router
+	router *mux.Router
 }
 
 //New constructs new api instance
 func New() *API {
 	return &API{
-		Server: mux.NewRouter(),
+		router: mux.NewRouter(),
 	}
+}
+
+//Run start server
+func (api *API)Run() {
+	api.setupRoutes()
+	http.ListenAndServe(":8080", api.router)
 }
