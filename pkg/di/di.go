@@ -23,8 +23,8 @@ func provideDatabase(config *config.Config) (*gorm.DB, error) {
 	return db, nil
 }
 
-func provideAPI(config *config.Config, db *gorm.DB) *api.API {
-	return api.New(config, db)
+func provideAPI(appConfig *config.Config, db *gorm.DB) *api.API {
+	return api.New(appConfig, db)
 }
 
 //BuildContainer build di for application

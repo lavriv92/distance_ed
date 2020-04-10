@@ -6,25 +6,29 @@ import "github.com/jinzhu/gorm"
 type IUserService interface {
 	GetUserByEmail(email string) (*User, error)
 	GetAllUsers() ([]*User, error)
+	Persist(user *User) ([]*User, error)
 }
 
 //UserService  userServise implementation
 type UserService struct {
-	db *gorm.DB
+	db              *gorm.DB
+	usersRepository IUsersRepository
 }
 
 //NewUserService create new user service
 func NewUserService(db *gorm.DB) *UserService {
-	return &UserService{db}
+	usersRepository := &Repository{db}
+	return &UserService{
+		usersRepository,
+	}
 }
 
 //GetAllUsers provide all users
 func (s *UserService) GetAllUsers() ([]*User, error) {
-	var users []*User
-	res := s.db.Find(&users)
+	users, err := s.usersRepository.All()
 
-	if res.Error != nil {
-		return nil, res.Error
+	if err != nil {
+		return nil, err
 	}
 
 	return users, nil
@@ -32,9 +36,22 @@ func (s *UserService) GetAllUsers() ([]*User, error) {
 
 //GetUserByEmail get user by email
 func (s *UserService) GetUserByEmail(email string) (*User, error) {
-	var user *User
-	if res := s.db.Where("email = ?", email).First(&user); res.Error != nil {
-		return nil, res.Error
+
+	user, err := s.usersRepository.GetByEmail(email)
+
+	if err != nil {
+		return nil, err
+	}
+
+	return user, nil
+}
+
+//Persist Persist user
+func (s *UserService) Persist(user *User) (*User, error) {
+	user, err := s.usersRepository.Create(user)
+
+	if err != nil {
+		return nil, err
 	}
 
 	return user, nil

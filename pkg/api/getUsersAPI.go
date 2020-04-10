@@ -15,7 +15,8 @@ func (api *API) getUsersAPI(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{
 			"error": "error",
 		})
-	} else {
-		c.JSON(http.StatusOK, &users)
+		return
 	}
+
+	c.JSON(http.StatusOK, &users)
 }
