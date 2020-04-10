@@ -1,25 +1,23 @@
 package api
 
-import (
-	"net/http"
+import "github.com/gin-gonic/gin"
 
-	"github.com/gorilla/mux"
-)
 
 //API application api
 type API struct {
-	router *mux.Router
+	router  *gin.Engine
 }
 
 //New constructs new api instance
 func New() *API {
 	return &API{
-		router: mux.NewRouter(),
+		router: gin.Default(),
 	}
 }
 
 //Run start server
 func (api *API)Run() {
 	api.setupRoutes()
-	http.ListenAndServe(":8080", api.router)
+	
+	api.router.Run()
 }

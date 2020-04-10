@@ -1,19 +1,19 @@
 package api
 
 import (
-	"encoding/json"
 	"net/http"
+
+	"github.com/gin-gonic/gin"
 )
 
 type payload struct {
 	Message string `json:"message"`
 }
 
-func (api *API) healthAPI(w http.ResponseWriter, r *http.Request) {
+func (api *API) healthAPI(c *gin.Context) {
 	m := &payload{
 		Message: "DistanceED rest api",
 	}
 
-	w.Header().Set("Content-Type", "application/json")
-	json.NewEncoder(w).Encode(m)
+	c.JSON(http.StatusOK, m)
 }
