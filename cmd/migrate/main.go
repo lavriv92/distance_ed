@@ -1,9 +1,10 @@
 package main
 
 import (
+	"github.com/jinzhu/gorm"
 	"github.com/joho/godotenv"
-	"github.com/lavriv92/distance_ed_backend/pkg/api"
 	"github.com/lavriv92/distance_ed_backend/pkg/di"
+	"github.com/lavriv92/distance_ed_backend/pkg/users"
 )
 
 func init() {
@@ -13,11 +14,7 @@ func init() {
 func main() {
 	container := di.BuildContainer()
 
-	err := container.Invoke(func(api *api.API) {
-		api.Run()
+	container.Invoke(func(db *gorm.DB) {
+		db.AutoMigrate(&users.User{})
 	})
-
-	if err != nil {
-		panic(err)
-	}
 }
