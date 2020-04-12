@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import classNames from 'classnames';
 import { Card, Button, Classes, Label, FormGroup } from '@blueprintjs/core';
 
@@ -6,8 +6,12 @@ import { useForm } from '../../../modules/shared/hooks';
 import { Flex } from '../../../modules/shared/components';
 
 import styles from './SignUp.module.css';
+import { api } from '../../../modules/shared/utils';
+import { useHistory } from 'react-router-dom';
 
 const SignUp = () => {
+  const [loading, setLoading] = useState(false);
+  const history = useHistory();
   const { values, setValue } = useForm({
     email: '',
     password: '',
@@ -26,10 +30,18 @@ const SignUp = () => {
   const inputClassName = classNames(Classes.INPUT, Classes.LARGE);
   const cardClassName = classNames(styles.root, Classes.SMALL);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    console.log('v: ', values);
+    try {
+      setLoading(true)
+      await api.post('/auth/users', values);
+      history.replace('/auth/sign-in');
+    } catch(err) {
+      console.log(err)
+    } finally {
+      setLoading(false);
+    }
   };
 
   return <Card className={cardClassName}>
@@ -60,7 +72,7 @@ const SignUp = () => {
         </Label>
       </FormGroup>
     </Flex>
-    <Button className={buttonClassName} onClick={handleSubmit}>Зареєструватись</Button>
+    <Button loading={loading} className={buttonClassName} onClick={handleSubmit}>Зареєструватись</Button>
   </Card>
 };
 
