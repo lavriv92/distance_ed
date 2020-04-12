@@ -11,8 +11,8 @@ const UserMenu = () => {
 
   return <Popover className={styles.root}>
     <div>
-      <span className={styles.name}>Ivan Lavriv</span>
       <Avatar name="Ivan Lavriv" size={40} round="40px" />
+      <span className={styles.name}>Ivan Lavriv</span>
     </div>
     <Menu>
       <MenuItem icon="user" text="Мій кабінет" />

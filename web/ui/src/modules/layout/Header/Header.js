@@ -6,7 +6,9 @@ import { Link } from 'react-router-dom';
 import { AuthContext } from '../../auth';
 
 import styles from './Header.module.css';
-import UserMenu from '../UserMenu/UserMenu';
+import UserMenu from '../UserMenu';
+import Chat from '../Chat';
+import Notifications from '../Notifications';
 
 
 const Header = () => {
@@ -23,10 +25,8 @@ const Header = () => {
     </Navbar.Group>
     {auth.isAuthenticated ? (
       <Navbar.Group align={Alignment.RIGHT}>
-        <Popover>
-          <Icon intent={Intent.SUCCESS} iconSize={20} icon="notifications"/>
-          <div>notifications</div>
-        </Popover>
+        <Notifications />
+        <Chat />
         <UserMenu />
       </Navbar.Group>
     ) : (
