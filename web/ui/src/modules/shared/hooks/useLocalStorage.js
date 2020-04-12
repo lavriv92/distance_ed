@@ -1,7 +1,9 @@
 import { useState } from 'react';
 
 const useLocalStorage = (key) => {
-  const [value, setValue] = useState(window.localStorage.getItem(key));
+  const [value, setValue] = useState(
+    window.localStorage.getItem(key)
+  );
 
   const  setLocalStorageValue = (value) => {
     window.localStorage.setItem(key, value);
@@ -10,7 +12,7 @@ const useLocalStorage = (key) => {
 
   const removeValue = () => {
     window.localStorage.removeItem(key);
-    setValue(window.localStorage.key);
+    setValue(undefined);
   };
 
   return [ value, setLocalStorageValue, removeValue ];

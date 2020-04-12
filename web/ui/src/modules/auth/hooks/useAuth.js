@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 
 import { api } from '../../shared/utils';
 import { useLocalStorage } from '../../shared/hooks';
+import { Toaster } from '@blueprintjs/core';
 
 const useAuth = () => {
   const [token, setToken, removeToken] = useLocalStorage('authToken');
@@ -15,7 +16,9 @@ const useAuth = () => {
       setToken(userData.token);
       history.replace('/');
     } catch(err) {
-      console.log('api error');
+      Toaster.create({
+        intent: 'Error'
+      }).show();
     }
   }
 
