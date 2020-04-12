@@ -6,6 +6,7 @@ import (
 	"github.com/dgrijalva/jwt-go"
 	"github.com/gin-gonic/gin"
 	"github.com/lavriv92/distance_ed_backend/pkg/users"
+	"github.com/lavriv92/distance_ed_backend/pkg/utils"
 )
 
 type loginPayload struct {
@@ -27,6 +28,11 @@ func (api *API) loginAPI(c *gin.Context) {
 
 	if err != nil {
 		c.JSON(http.StatusBadGateway, gin.H{"message": err.Error()})
+		return
+	}
+
+	if !utils.ValidatePassword(user.PasswordHash, loginJSON.Password) {
+		c.JSON(http.StatusUnauthorized, gin.H{"message": "User not authorized"})
 		return
 	}
 

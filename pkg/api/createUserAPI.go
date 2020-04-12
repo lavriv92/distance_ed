@@ -42,7 +42,7 @@ func (api *API) createUserAPI(c *gin.Context) {
 		return
 	}
 
-	user.Password = string(encryptedPassword)
+	user.PasswordHash = string(encryptedPassword)
 
 	usersService := users.NewUserService(api.db)
 	createdUser, err := usersService.Persist(user)

@@ -1,6 +1,8 @@
 package utils
 
 import (
+	"fmt"
+
 	"golang.org/x/crypto/bcrypt"
 )
 
@@ -13,4 +15,16 @@ func EncryptPassword(passwordToCrypt string) (string, error) {
 	}
 
 	return string(encryptedPassword), nil
+}
+
+//ValidatePassword validate user password
+func ValidatePassword(passwordHash string, password string) bool {
+	err := bcrypt.CompareHashAndPassword([]byte(passwordHash), []byte(password))
+
+	if err != nil {
+		fmt.Println(err)
+		return false
+	}
+
+	return true
 }
