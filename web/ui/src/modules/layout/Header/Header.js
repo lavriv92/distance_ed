@@ -1,11 +1,12 @@
 import React, { useContext } from 'react';
 import classNames from 'classnames';
-import { Navbar, Alignment, Classes, Button } from '@blueprintjs/core';
+import { Navbar, Alignment, Classes, Popover, Icon, Intent } from '@blueprintjs/core';
 import { Link } from 'react-router-dom';
 
 import { AuthContext } from '../../auth';
 
 import styles from './Header.module.css';
+import UserMenu from '../UserMenu/UserMenu';
 
 
 const Header = () => {
@@ -22,7 +23,11 @@ const Header = () => {
     </Navbar.Group>
     {auth.isAuthenticated ? (
       <Navbar.Group align={Alignment.RIGHT}>
-        <Button className={linkClassName} onClick={auth.signOut}>Вийти</Button>
+        <Popover>
+          <Icon intent={Intent.SUCCESS} iconSize={20} icon="notifications"/>
+          <div>notifications</div>
+        </Popover>
+        <UserMenu />
       </Navbar.Group>
     ) : (
       <Navbar.Group align={Alignment.RIGHT}>

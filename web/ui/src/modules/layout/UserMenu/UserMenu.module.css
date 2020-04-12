@@ -1,0 +1,10 @@
+.root {
+  margin: 0 10px;
+  margin-right: 0;
+  cursor: pointer;
+}
+
+.name {
+  display: inline-block;
+  margin: 0 10px;
+}

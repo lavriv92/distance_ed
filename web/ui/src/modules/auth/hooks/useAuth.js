@@ -14,7 +14,7 @@ const useAuth = () => {
       const userData = await api.post('/auth/token', signInData);
   
       setToken(userData.token);
-      history.replace('/');
+      history.replace('/cabinet');
     } catch(err) {
       Toaster.create({
         intent: 'Error'
