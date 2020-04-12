@@ -11,22 +11,28 @@ import (
 
 func (api *API) authMiddleware(c *gin.Context) {
 	authTokenHeader := c.Request.Header.Get("Authorization")
-	authTokenValue := strings.Split(authTokenHeader, " ")[1]
 
-	token, err := jwt.Parse(authTokenValue, func(token *jwt.Token) (interface{}, error) {
+	tokenData := strings.Split(authTokenHeader, " ")
+
+	if len(tokenData) != 2 {
+		c.JSON(http.StatusBadRequest, gin.H{"message": "Token should be provided"})
+		c.Abort()
+	}
+
+	token, err := jwt.Parse(tokenData[1], func(token *jwt.Token) (interface{}, error) {
 		return []byte(api.config.TokenSecret), nil
 	})
 
 	if err != nil {
 		c.JSON(http.StatusUnauthorized, gin.H{"message": "Unauthorized"})
-		return
+		c.Abort()
 	}
 
 	claims, ok := token.Claims.(jwt.MapClaims)
 
 	if !ok || !token.Valid {
 		c.JSON(http.StatusUnauthorized, gin.H{"message": "unauthorized"})
-		return
+		c.Abort()
 	}
 
 	userService := users.NewUserService(api.db)
@@ -34,7 +40,7 @@ func (api *API) authMiddleware(c *gin.Context) {
 
 	if err != nil {
 		c.JSON(http.StatusUnauthorized, gin.H{"message": "Unauthorized"})
-		return
+		c.Abort()
 	}
 
 	c.Set("currentUser", user)

@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import classNames from 'classnames';
 import { Card, Label, Classes, Button } from '@blueprintjs/core';
 
 import { useForm } from '../../../modules/shared/hooks';
+import { AuthContext } from '../../../modules/auth';
 
 import styles from './SignIn.module.css';
 
@@ -15,12 +16,15 @@ const SignIn = () => {
     password: []
   });
 
+  const auth = useContext(AuthContext);
+
   const buttonClassName = classNames(Classes.MINIMAL, Classes.INTENT_SUCCESS, Classes.LARGE);
   const inputClassName = classNames(Classes.INPUT, Classes.LARGE);
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
+    auth.signIn();
     console.log('values', values);
   };
 
