@@ -23,9 +23,7 @@ const SignIn = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    auth.signIn();
-    console.log('values', values);
+    auth.signIn(values);
   };
 
   return <Card className={styles.root}>

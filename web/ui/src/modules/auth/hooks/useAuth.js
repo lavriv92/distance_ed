@@ -1,21 +1,30 @@
-import { useState } from 'react';
+
 import { useHistory } from 'react-router-dom';
 
+import { api } from '../../shared/utils';
+import { useLocalStorage } from '../../shared/hooks';
+
 const useAuth = () => {
-  const [isAuthenticated, setAuthenticated] = useState(false);
+  const [token, setToken, removeToken] = useLocalStorage('authToken');
   const history = useHistory();
 
-  const signIn = (email, password) => {
-    setAuthenticated(true);
-    history.replace('/');
+  const signIn = async (signInData) => {
+    try {
+      const userData = await api.post('/auth/token', signInData);
+  
+      setToken(userData.token);
+      history.replace('/');
+    } catch(err) {
+      console.log('api error');
+    }
   }
 
   const signOut = () => {
-    setAuthenticated(false);
+    removeToken()
     history.replace('/auth/sign-in');
   };
 
-  return { isAuthenticated, signIn, signOut };
+  return { isAuthenticated: !!token, signIn, signOut };
 };
 
 export default useAuth;
