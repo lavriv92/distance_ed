@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import classNames from 'classnames';
 import { Card, Label, Classes, Button } from '@blueprintjs/core';
 
@@ -8,6 +8,10 @@ import { AuthContext } from '../../../modules/auth';
 import styles from './SignIn.module.css';
 
 const SignIn = () => {
+  const auth = useContext(AuthContext);
+  const [loading, setLoading] = useState(false);
+  
+
   const { values, setValue } = useForm({
     email: '',
     password: ''
@@ -16,14 +20,19 @@ const SignIn = () => {
     password: []
   });
 
-  const auth = useContext(AuthContext);
-
   const buttonClassName = classNames(Classes.MINIMAL, Classes.INTENT_SUCCESS, Classes.LARGE);
   const inputClassName = classNames(Classes.INPUT, Classes.LARGE);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    auth.signIn(values);
+    try {
+      setLoading(true)
+      await auth.signIn(values);
+    } catch(err) {
+      console.log('Err', err);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return <Card className={styles.root}>
@@ -39,7 +48,7 @@ const SignIn = () => {
         <input className={inputClassName} value={values.password} name="password" onChange={setValue} type="password" placeholder="Введіть свій пароль" />
       </Label>
     </div>
-    <Button className={buttonClassName} onClick={handleSubmit}>Увійти</Button>
+    <Button loading={loading} className={buttonClassName} onClick={handleSubmit}>Увійти</Button>
   </Card>
 };
 
