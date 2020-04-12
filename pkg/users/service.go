@@ -1,17 +1,19 @@
 package users
 
-import "github.com/jinzhu/gorm"
+import (
+	"github.com/jinzhu/gorm"
+)
 
 //IUserService userService declaration
 type IUserService interface {
 	GetUserByEmail(email string) (*User, error)
+	GetUserByID(id uint64) (*User, error)
 	GetAllUsers() ([]*User, error)
 	Persist(user *User) ([]*User, error)
 }
 
 //UserService  userServise implementation
 type UserService struct {
-	db              *gorm.DB
 	usersRepository IUsersRepository
 }
 
@@ -36,7 +38,6 @@ func (s *UserService) GetAllUsers() ([]*User, error) {
 
 //GetUserByEmail get user by email
 func (s *UserService) GetUserByEmail(email string) (*User, error) {
-
 	user, err := s.usersRepository.GetByEmail(email)
 
 	if err != nil {
@@ -46,7 +47,18 @@ func (s *UserService) GetUserByEmail(email string) (*User, error) {
 	return user, nil
 }
 
-//Persist Persist user
+//GetUserByID get user by id
+func (s *UserService) GetUserByID(id interface{}) (*User, error) {
+	user, err := s.usersRepository.GetByID(id)
+
+	if err != nil {
+		return nil, err
+	}
+
+	return user, nil
+}
+
+//Persist persist user
 func (s *UserService) Persist(user *User) (*User, error) {
 	user, err := s.usersRepository.Create(user)
 

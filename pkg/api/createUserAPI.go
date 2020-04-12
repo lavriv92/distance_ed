@@ -16,6 +16,7 @@ type userPayload struct {
 	LastName             string `form:"lastName" json:"lastName"`
 }
 
+//TODO: move serveral logic to service
 func (api *API) createUserAPI(c *gin.Context) {
 	var userJSON userPayload
 	if err := c.ShouldBindJSON(&userJSON); err != nil {

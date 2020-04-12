@@ -6,6 +6,7 @@ import "github.com/jinzhu/gorm"
 type IUsersRepository interface {
 	All() ([]*User, error)
 	GetByEmail(email string) (*User, error)
+	GetByID(id interface{}) (*User, error)
 	Create(user *User) (*User, error)
 }
 
@@ -35,6 +36,17 @@ func (r *Repository) GetByEmail(email string) (*User, error) {
 	var user User
 
 	if result := r.db.First(&user, "email = ?", email); result.Error != nil {
+		return nil, result.Error
+	}
+
+	return &user, nil
+}
+
+//GetByID get user by id
+func (r *Repository) GetByID(id interface{}) (*User, error) {
+	var user User
+
+	if result := r.db.First(&user, "id = ?", id); result.Error != nil {
 		return nil, result.Error
 	}
 

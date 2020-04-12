@@ -1,15 +1,15 @@
 package api
 
 import (
-	"fmt"
 	"net/http"
 
+	"github.com/dgrijalva/jwt-go"
 	"github.com/gin-gonic/gin"
 	"github.com/lavriv92/distance_ed_backend/pkg/users"
 )
 
 type loginPayload struct {
-	Email    string `"form:"email" json:"email" bindig:"required"`
+	Email    string `form:"email" json:"email" bindig:"required"`
 	Password string `form:"password" json:"password" binding:"required"`
 }
 
@@ -21,8 +21,6 @@ func (api *API) loginAPI(c *gin.Context) {
 		return
 	}
 
-	fmt.Println(loginJSON)
-
 	userService := users.NewUserService(api.db)
 
 	user, err := userService.GetUserByEmail(loginJSON.Email)
@@ -32,5 +30,16 @@ func (api *API) loginAPI(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusOK, user)
+	token := jwt.NewWithClaims(jwt.SigningMethodHS512, jwt.MapClaims{
+		"userID": user.ID,
+	})
+
+	stringToken, err := token.SignedString([]byte(api.config.TokenSecret))
+
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{"token": stringToken, "user": user})
 }
