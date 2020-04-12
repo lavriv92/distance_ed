@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react';
+import api from '../../modules/shared/utils/api';
 
 const Home = () => {
   
   useEffect(() => {
-    fetch('/v1/')
-      .then(res => res.json())
+    api.get('/v1/')
       .then(res => {
         console.log('res', res)
       })
