@@ -15,7 +15,10 @@ func (api *API) setupRoutes() {
 	{
 		v1.Use(api.authMiddleware)
 
-		//#healthcheck api
+		//healthcheck api
 		v1.GET("/", api.healthAPI)
+
+		//classrooms api
+		v1.GET("/classrooms", api.classRoomsAPI)
 	}
 }

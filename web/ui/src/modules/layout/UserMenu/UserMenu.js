@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
-import { Menu, MenuItem, Popover } from '@blueprintjs/core';
+import { Link } from 'react-router-dom';
+import { Menu, MenuItem, Popover, Icon, Classes } from '@blueprintjs/core';
 import Avatar from 'react-avatar';
 
 import { AuthContext } from '../../auth';
@@ -15,9 +16,18 @@ const UserMenu = () => {
       <span className={styles.name}>Ivan Lavriv</span>
     </div>
     <Menu>
-      <MenuItem icon="user" text="Мій кабінет" />
-      <MenuItem icon="id-number" text="Мій Профіль" />
-      <MenuItem icon="settings" text="Мої Налаштування" />
+      <Link className={Classes.MENU_ITEM} to="/cabinet">
+        <Icon icon="user" />
+        <span className={Classes.MENU_ITEM_LABEL} >Мій кабінет</span>
+      </Link>
+      <Link className={Classes.MENU_ITEM} to="/profile">
+        <Icon icon="id-number" />
+        <span  className={Classes.MENU_ITEM_LABEL}>Мій Профіль</span>
+      </Link>
+      <Link className={Classes.MENU_ITEM} to="/settings">
+        <Icon icon="settings" />
+        <span className={Classes.MENU_ITEM_LABEL}>Мої Налаштування</span>
+      </Link>
       <Menu.Divider />
       <MenuItem icon="log-out" onClick={auth.signOut} text="Вийти" />
     </Menu>
