@@ -1,24 +1,17 @@
 import React from 'react';
-import classNames from 'classnames';
-import { Switch, Link } from 'react-router-dom';
+import { Switch } from 'react-router-dom';
 
 import { Flex } from '../../../modules/shared/components'
-import { Classes, Card } from '@blueprintjs/core';
+import { Sidebar, SideContainer } from '../../../modules/layout';
+import { TeacherMenu } from '../../../modules/cabinet';
 
 
 const Main = ({ children }) => {
-  const buttonClassName = classNames(Classes.BUTTON, Classes.LARGE, Classes.MINIMAL);
-
-
   return <Flex>
-    <Card>
-      <ul>
-        <li>
-          <Link className={buttonClassName} to="/cabinet/profile">Profile</Link>
-        </li>
-      </ul>
-    </Card>
-    <div> foo<Switch>{children}</Switch></div>
+    <Sidebar>
+      <TeacherMenu />
+    </Sidebar>
+    <SideContainer> foo<Switch>{children}</Switch></SideContainer>
   </Flex>
 };
 

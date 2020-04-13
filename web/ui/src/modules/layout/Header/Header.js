@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import classNames from 'classnames';
-import { Navbar, Alignment, Classes, Popover, Icon, Intent } from '@blueprintjs/core';
+import { Navbar, Alignment, Classes } from '@blueprintjs/core';
 import { Link } from 'react-router-dom';
 
 import { AuthContext } from '../../auth';
@@ -14,7 +14,7 @@ import Notifications from '../Notifications';
 const Header = () => {
   const auth = useContext(AuthContext)
 
-  const linkClassName = classNames(Classes.BUTTON, Classes.MINIMAL)
+  const linkClassName = classNames(Classes.BUTTON, Classes.MINIMAL);
 
   return <Navbar>
     <Navbar.Group align={Alignment.LEFT}>

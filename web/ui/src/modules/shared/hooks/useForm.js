@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 const useForm = (defaultValues = {}, validators = {}) => {
   const [values, setValues] = useState(defaultValues);
-  const [errors, setErrors] = useState({});
+  const [errors] = useState({});
 
   const setValue = (e) => {
     e.persist();
