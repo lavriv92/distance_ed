@@ -1,0 +1,42 @@
+package api
+
+import (
+	"net/http"
+
+	"github.com/gin-gonic/gin"
+	"github.com/lavriv92/distance_ed_backend/pkg/classrooms"
+	"github.com/lavriv92/distance_ed_backend/pkg/users"
+)
+
+type classroomPayload struct {
+	Name        string `form:"name" json:"name" binding:"required"`
+	Description string `form:"description" json:"description"`
+}
+
+func (api *API) createClassroomAPI(c *gin.Context) {
+	var classroomJSON classroomPayload
+
+	err := c.ShouldBindJSON(&classroomJSON)
+
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		c.Abort()
+	}
+
+	currentUser := c.MustGet("currentUser").(*users.User)
+
+	classroomService := classrooms.NewClassroomService(api.db)
+
+	createdClassRoom, err := classroomService.Persist(&classrooms.Classroom{
+		Name:        classroomJSON.Name,
+		Description: classroomJSON.Description,
+		UserID:      currentUser.ID,
+	})
+
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		c.Abort()
+	}
+
+	c.JSON(http.StatusCreated, gin.H{"classroom": createdClassRoom})
+}

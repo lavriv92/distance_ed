@@ -20,7 +20,3 @@ func (api *API) classRoomsAPI(c *gin.Context) {
 
 	c.JSON(http.StatusOK, gin.H{"classrooms": classrooms})
 }
-
-func (api *API) createClassRoomsAPI(c *gin.Context) {
-
-}

@@ -10,6 +10,6 @@ type Classroom struct {
 	gorm.Model
 	Name        string
 	Description string
-	UserID      int
-	User        users.User
+	UserID      uint
+	User        users.User `gorm:"foreignkey:UserID" json:"-"`
 }
