@@ -4,7 +4,7 @@ import "github.com/jinzhu/gorm"
 
 //IClassroomService - represents classrooms
 type IClassroomService interface {
-	GetAllClassrooms() ([]*Classroom, error)
+	GetAllClassrooms(userID uint) ([]*Classroom, error)
 	Persist(*Classroom) (*Classroom, error)
 }
 
@@ -22,9 +22,9 @@ func NewClassroomService(db *gorm.DB) *ClassroomService {
 	}
 }
 
-//GetAllClassrooms provide list of all classrooms
-func (s *ClassroomService) GetAllClassrooms() ([]*Classroom, error) {
-	classrooms, err := s.classroomsRepository.FindAll()
+//GetUserClassrooms provide list of all classrooms
+func (s *ClassroomService) GetUserClassrooms(userID uint) ([]*Classroom, error) {
+	classrooms, err := s.classroomsRepository.GetByUserID(userID)
 
 	if err != nil {
 		return nil, err

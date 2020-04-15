@@ -6,7 +6,7 @@ import (
 
 //IClassroomsRepository represents iclassroom
 type IClassroomsRepository interface {
-	FindAll() ([]*Classroom, error)
+	GetByUserID(userID uint) ([]*Classroom, error)
 	Create(classroom *Classroom) (*Classroom, error)
 }
 
@@ -20,11 +20,11 @@ func NewClassroomsRepository(db *gorm.DB) *Repository {
 	return &Repository{db}
 }
 
-//FindAll get all of classRooms
-func (r *Repository) FindAll() ([]*Classroom, error) {
+//GetByUserID get all of classRooms
+func (r *Repository) GetByUserID(userID uint) ([]*Classroom, error) {
 	var classrooms []*Classroom
 
-	if result := r.db.Find(&classrooms); result.Error != nil {
+	if result := r.db.Where("user_id = ?", userID).Find(&classrooms); result.Error != nil {
 		return nil, result.Error
 	}
 
