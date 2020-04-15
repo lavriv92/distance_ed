@@ -3,22 +3,27 @@ import { useHistory } from 'react-router-dom';
 
 import { api } from '../../shared/utils';
 import { useLocalStorage } from '../../shared/hooks';
-import { Toaster } from '@blueprintjs/core';
+import { Toaster, Intent, Position } from '@blueprintjs/core';
 
 const useAuth = () => {
   const [token, setToken, removeToken] = useLocalStorage('authToken');
   const history = useHistory();
 
+  const handleError = () => Toaster.create({
+      position: Position.RIGHT_TOP
+    }).show({
+      intent: Intent.DANGER,
+      icon: 'error',
+      message: 'Не вдалося авторизуватись'
+    });
+
   const signIn = async (signInData) => {
     try {
       const userData = await api.post('/auth/token', signInData);
-  
       setToken(userData.token);
       history.replace('/cabinet');
     } catch(err) {
-      Toaster.create({
-        intent: 'Error'
-      }).show();
+      handleError();
     }
   }
 

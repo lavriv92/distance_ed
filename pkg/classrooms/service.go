@@ -14,5 +14,18 @@ type ClassroomService struct {
 func NewClassroomService(db *gorm.DB) *ClassroomService {
 	classroomsRepository := NewClassroomsRepository(db)
 
-	return &ClassroomService{classroomRepository}
+	return &ClassroomService{
+		classroomsRepository,
+	}
+}
+
+//GetAllClassrooms provide list of all classrooms
+func (s *ClassroomService) GetAllClassrooms() ([]*Classroom, error) {
+	classrooms, err := s.classroomsRepository.FindAll()
+
+	if err != nil {
+		return nil, err
+	}
+
+	return classrooms, nil
 }

@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import { AuthContext } from '../../auth';
 
 import styles from './Header.module.css';
+
 import UserMenu from '../UserMenu';
 import Chat from '../Chat';
 import Notifications from '../Notifications';

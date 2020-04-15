@@ -19,7 +19,7 @@ func (api *API) loginAPI(c *gin.Context) {
 
 	if err := c.ShouldBindJSON(&loginJSON); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-		return
+		c.Abort()
 	}
 
 	userService := users.NewUserService(api.db)
@@ -28,12 +28,12 @@ func (api *API) loginAPI(c *gin.Context) {
 
 	if err != nil {
 		c.JSON(http.StatusBadGateway, gin.H{"message": err.Error()})
-		return
+		c.Abort()
 	}
 
 	if !utils.ValidatePassword(user.PasswordHash, loginJSON.Password) {
 		c.JSON(http.StatusUnauthorized, gin.H{"message": "User not authorized"})
-		return
+		c.Abort()
 	}
 
 	token := jwt.NewWithClaims(jwt.SigningMethodHS512, jwt.MapClaims{
@@ -44,7 +44,7 @@ func (api *API) loginAPI(c *gin.Context) {
 
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
-		return
+		c.Abort()
 	}
 
 	c.JSON(http.StatusOK, gin.H{"token": stringToken, "user": user})

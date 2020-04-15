@@ -1,11 +1,8 @@
-
-
 .root {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
   font-family: "Roboto" sans-serif;
-  background: #fff8f2;
 }
 
 .main {

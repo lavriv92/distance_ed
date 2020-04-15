@@ -14,13 +14,13 @@ type Repository struct {
 
 //NewClassroomsRepository creates new classrooms repo
 func NewClassroomsRepository(db *gorm.DB) *Repository {
-	return &ClassroomsRepository{db}
+	return &Repository{db}
 }
 
 //FindAll get all of classRooms
-func (r *Repository) FindAll() {
+func (r *Repository) FindAll() ([]*Classroom, error) {
 	var classrooms []*Classroom
-	if result := r.db.All(&classrooms); result.Error != nil {
+	if result := r.db.Find(&classrooms); result.Error != nil {
 		return nil, result.Error
 	}
 

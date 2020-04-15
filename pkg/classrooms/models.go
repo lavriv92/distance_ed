@@ -10,6 +10,6 @@ type Classroom struct {
 	gorm.Model
 	Name        string
 	Description string
-	MentorID    int
-	Mentor      users.User
+	UserID      int
+	User        users.User
 }
