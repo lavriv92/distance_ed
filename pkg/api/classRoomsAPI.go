@@ -9,7 +9,6 @@ import (
 )
 
 func (api *API) classRoomsAPI(c *gin.Context) {
-
 	currentUser := c.MustGet("currentUser").(*users.User)
 	classrooms, err := classrooms.NewClassroomService(api.db).GetUserClassrooms(currentUser.ID)
 
