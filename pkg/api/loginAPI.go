@@ -22,9 +22,7 @@ func (api *API) loginAPI(c *gin.Context) {
 		c.Abort()
 	}
 
-	userService := users.NewUserService(api.db)
-
-	user, err := userService.GetUserByEmail(loginJSON.Email)
+	user, err := users.NewUserService(api.db).GetUserByEmail(loginJSON.Email)
 
 	if err != nil {
 		c.JSON(http.StatusBadGateway, gin.H{"message": err.Error()})
