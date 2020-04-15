@@ -8,8 +8,7 @@ import (
 )
 
 func (api *API) classRoomsAPI(c *gin.Context) {
-	classroomsService := classrooms.NewClassroomService(api.db)
-	classrooms, err := classroomsService.GetAllClassrooms()
+	classrooms, err := classrooms.NewClassroomService(api.db).GetAllClassrooms()
 
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{
