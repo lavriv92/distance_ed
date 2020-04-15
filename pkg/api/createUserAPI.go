@@ -21,35 +21,31 @@ func (api *API) createUserAPI(c *gin.Context) {
 	var userJSON userPayload
 	if err := c.ShouldBindJSON(&userJSON); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-		return
+		c.Abort()
 	}
 
 	if userJSON.Password != userJSON.PasswordConfirmation {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Password mismatch"})
-		return
-	}
-
-	user := &users.User{
-		Email:     userJSON.Email,
-		FirstName: userJSON.FirstName,
-		LastName:  userJSON.LastName,
+		c.Abort()
 	}
 
 	encryptedPassword, err := utils.EncryptPassword(userJSON.Password)
 
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"message": err.Error()})
-		return
+		c.Abort()
 	}
 
-	user.PasswordHash = string(encryptedPassword)
-
-	usersService := users.NewUserService(api.db)
-	createdUser, err := usersService.Persist(user)
+	createdUser, err := users.NewUserService(api.db).Persist(&users.User{
+		Email:        userJSON.Email,
+		FirstName:    userJSON.FirstName,
+		LastName:     userJSON.LastName,
+		PasswordHash: string(encryptedPassword),
+	})
 
 	if err != nil {
 		c.JSON(http.StatusConflict, gin.H{"error": err.Error()})
-		return
+		c.Abort()
 	}
 
 	c.JSON(http.StatusCreated, createdUser)

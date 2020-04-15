@@ -25,9 +25,7 @@ func (api *API) createClassroomAPI(c *gin.Context) {
 
 	currentUser := c.MustGet("currentUser").(*users.User)
 
-	classroomService := classrooms.NewClassroomService(api.db)
-
-	createdClassRoom, err := classroomService.Persist(&classrooms.Classroom{
+	createdClassRoom, err := classrooms.NewClassroomService(api.db).Persist(&classrooms.Classroom{
 		Name:        classroomJSON.Name,
 		Description: classroomJSON.Description,
 		UserID:      currentUser.ID,
