@@ -11,5 +11,6 @@ type Classroom struct {
 	Name        string
 	Description string
 	UserID      uint
-	User        users.User `gorm:"foreignkey:UserID" json:"-"`
+	User        users.User    `gorm:"foreignkey:UserID" json:"-"`
+	Students    []*users.User `gorm:"many2many:user_classrooms;"`
 }
