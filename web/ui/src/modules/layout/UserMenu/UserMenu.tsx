@@ -5,18 +5,18 @@ import Avatar from 'react-avatar';
 
 import { AuthContext } from '../../auth';
 
-import styles from './UserMenu.module.css';
+import styles from './styles.module.scss';
 
 const UserMenu = () => {
   const auth = useContext(AuthContext);
 
   return <Popover className={styles.root}>
     <div>
-      <Avatar name="Ivan Lavriv" size={40} round="40px" />
+      <Avatar name="Ivan Lavriv" size="40" round="40px" />
       <span className={styles.name}>Ivan Lavriv</span>
     </div>
     <Menu>
-      <Link className={Classes.MENU_ITEM} to="/cabinet">
+      <Link className={Classes.MENU_ITEM} to="/cabinet/classrooms">
         <Icon icon="user" />
         <span className={Classes.MENU_ITEM_LABEL} >Мій кабінет</span>
       </Link>
