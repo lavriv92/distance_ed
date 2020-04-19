@@ -1,4 +1,3 @@
-
 import { useHistory } from 'react-router-dom';
 
 import { api } from '../../shared/utils';
@@ -9,12 +8,13 @@ const useAuth = () => {
   const [token, setToken, removeToken] = useLocalStorage('authToken');
   const history = useHistory();
 
-  const handleError = () => Toaster.create({
-      position: Position.RIGHT_TOP
+  const handleError = () =>
+    Toaster.create({
+      position: Position.RIGHT_TOP,
     }).show({
       intent: Intent.DANGER,
       icon: 'error',
-      message: 'Не вдалося авторизуватись'
+      message: 'Не вдалося авторизуватись',
     });
 
   const signIn = async (signInData) => {
@@ -22,13 +22,13 @@ const useAuth = () => {
       const userData = await api.post('/auth/token', signInData);
       setToken(userData.token);
       history.replace('/cabinet');
-    } catch(err) {
+    } catch (err) {
       handleError();
     }
-  }
+  };
 
   const signOut = () => {
-    removeToken()
+    removeToken();
     history.replace('/auth/sign-in');
   };
 
