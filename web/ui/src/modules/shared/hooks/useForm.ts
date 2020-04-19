@@ -1,10 +1,10 @@
 import { useState } from 'react';
 
 const useForm = (defaultValues = {}, validators = {}) => {
-  const [values, setValues] = useState(defaultValues);
+  const [values, setValues] = useState<Object>(defaultValues);
   const [errors] = useState({});
 
-  const setValue = (e) => {
+  const setValue = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.persist();
 
     const { name, value } = e.target;
@@ -15,7 +15,7 @@ const useForm = (defaultValues = {}, validators = {}) => {
   return {
     values,
     errors,
-    setValue
+    setValue,
   };
 };
 
