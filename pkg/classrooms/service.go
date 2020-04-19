@@ -6,6 +6,7 @@ import "github.com/jinzhu/gorm"
 type IClassroomService interface {
 	GetAllClassrooms(userID uint) ([]*Classroom, error)
 	Persist(*Classroom) (*Classroom, error)
+	GetClassroomDetails(classroomID uint) (*Classroom, error)
 }
 
 //ClassroomService -  implementataion of classrooms service
@@ -31,6 +32,17 @@ func (s *ClassroomService) GetUserClassrooms(userID uint) ([]*Classroom, error) 
 	}
 
 	return classrooms, nil
+}
+
+//GetClassroomDetails get classroom details
+func (s *ClassroomService) GetClassroomDetails(classroomID string) (*Classroom, error) {
+	classroom, err := s.classroomsRepository.GetByID(classroomID)
+
+	if err != nil {
+		return nil, err
+	}
+
+	return classroom, nil
 }
 
 //Persist - save classroom to database

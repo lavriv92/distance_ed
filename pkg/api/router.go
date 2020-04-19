@@ -20,6 +20,7 @@ func (api *API) setupRoutes() {
 
 		//classrooms api
 		v1.GET("/classrooms", api.classRoomsAPI)
+		v1.GET("/classrooms/:id", api.classroomDetailsAPI)
 		v1.POST("/classrooms", api.createClassroomAPI)
 
 		//materials
