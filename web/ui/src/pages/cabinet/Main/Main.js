@@ -11,7 +11,7 @@ const Main = ({ children }) => {
     <Sidebar>
       <TeacherMenu />
     </Sidebar>
-    <SideContainer> foo<Switch>{children}</Switch></SideContainer>
+    <SideContainer><Switch>{children}</Switch></SideContainer>
   </Flex>
 };
 

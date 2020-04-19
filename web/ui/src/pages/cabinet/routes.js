@@ -1,6 +1,11 @@
 import React from 'react';
-import Main from './Main/Main';
+import { Route } from 'react-router-dom';
 
-const CabineRoutes = () => <Main></Main>;
+import Main from './Main';
+import Classrooms from './Classrooms';
+
+const CabineRoutes = ({ match }) => <Main>
+  <Route path={`${match.path}/classrooms`} component={Classrooms} />
+</Main>;
 
 export default CabineRoutes;
