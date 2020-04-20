@@ -1,7 +1,7 @@
 import React, { FC, useEffect, useCallback, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
-import { getClassroomDetails } from '../../../modules/classrooms/api';
+import classroomsAPI from '../../../modules/classrooms';
 
 type ClassroomDetailsParams = {
   id: string;
@@ -17,7 +17,7 @@ const ClassroomDetails: FC<object> = () => {
   const params = useParams<ClassroomDetailsParams>();
 
   const fetchClassroom = useCallback(async () => {
-    const result = await getClassroomDetails(params.id);
+    const result = await classroomsAPI.api.getClassroomDetails(params.id);
     setClassroom(result.classroom);
   }, [params.id]);
 

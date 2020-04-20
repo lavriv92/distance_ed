@@ -5,10 +5,16 @@ import ClassroomItem from '../ClassroomItem';
 import styles from './styles.module.scss';
 
 type ClassroomsListProps = {
-  classrooms: Array<any>;
+  classrooms: Array<ClassroomItemProps>;
 };
 
-const ClassroomsList: FC<ClassroomsListProps> = ({ classrooms }) => (
+type ClassroomItemProps = {
+  ID: string;
+  Name: string;
+  Description: string;
+};
+
+const ClassroomsList: FC<ClassroomsListProps> = ({ classrooms = [] }) => (
   <div className={styles.root}>
     <h2 className={styles.title}>Мої класи</h2>
 
