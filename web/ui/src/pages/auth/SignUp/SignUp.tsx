@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import classNames from 'classnames';
+import { useHistory } from 'react-router-dom';
 import { Card, Button, Classes, Label, FormGroup } from '@blueprintjs/core';
 
 import { useForm } from '../../../modules/shared/hooks';
 import { Flex as FlexBox } from '../../../modules/shared/components';
+import { api } from '../../../modules/shared/utils';
+import ISignUpData from '../../../interfaces/ISignUpData';
 
 import styles from './SignUp.module.css';
-import { api } from '../../../modules/shared/utils';
-import { useHistory } from 'react-router-dom';
-import { ISignUpData } from '../../../modules/auth/models';
 
 const SignUp = () => {
   const [loading, setLoading] = useState<boolean>(false);

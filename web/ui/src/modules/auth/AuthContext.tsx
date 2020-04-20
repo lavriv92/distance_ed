@@ -1,7 +1,7 @@
 import React, { createContext, FC } from 'react';
 
 import useAuth from './hooks/useAuth';
-import { ISignInData } from './models';
+import ISignInData from '../../interfaces/ISignInData';
 
 type AuthContextType = {
   isAuthenticated: boolean;
@@ -15,7 +15,7 @@ export const AuthContext = createContext<AuthContextType>({
   signOut: () => {},
 });
 
-const AuthProvider: FC<any> = ({ children }) => {
+const AuthProvider: FC<React.ComponentProps<any>> = ({ children }) => {
   const authValue = useAuth();
 
   return <AuthContext.Provider value={authValue}>{children}</AuthContext.Provider>;

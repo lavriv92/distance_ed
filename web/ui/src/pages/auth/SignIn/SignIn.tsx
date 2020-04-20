@@ -6,7 +6,7 @@ import { useForm } from '../../../modules/shared/hooks';
 import { AuthContext } from '../../../modules/auth';
 
 import styles from './SignIn.module.css';
-import { ISignInData } from '../../../modules/auth/models';
+import ISignInData from '../../../interfaces/ISignInData';
 
 const SignIn = () => {
   const auth = useContext(AuthContext);

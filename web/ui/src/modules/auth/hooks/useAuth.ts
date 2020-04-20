@@ -3,7 +3,9 @@ import { Toaster, Intent, Position } from '@blueprintjs/core';
 
 import { api } from '../../shared/utils';
 import { useLocalStorage } from '../../shared/hooks';
-import { ISignResponse, ISignInData } from '../models';
+
+import ISignInData from '../../../interfaces/ISignInData';
+import ISignResponse from '../../../interfaces/ISignInResponse';
 
 const useAuth = () => {
   const [token, setToken, removeToken] = useLocalStorage('authToken');
