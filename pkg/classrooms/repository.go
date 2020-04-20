@@ -25,7 +25,7 @@ func NewClassroomsRepository(db *gorm.DB) *Repository {
 func (r *Repository) GetByUserID(userID uint) ([]*Classroom, error) {
 	var classrooms []*Classroom
 
-	if result := r.db.Where("user_id = ?", userID).Find(&classrooms); result.Error != nil {
+	if result := r.db.Preload("Students").Where("user_id = ?", userID).Find(&classrooms); result.Error != nil {
 		return nil, result.Error
 	}
 
