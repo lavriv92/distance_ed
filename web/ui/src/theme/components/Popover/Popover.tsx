@@ -24,7 +24,12 @@ const Body = styled.div`
   background: #fff;
   position: absolute;
   padding: 15px;
-  border-radius: 0 10px 10px 10px;
+  width: auto;
+  border-radius: 5px;
+  display: block;
+  min-width: 250px;
+  right: 0;
+  border-radius: 10px 0 10px 10px;
 `;
 
 const Popover: React.FC<any> = ({ children }) => {

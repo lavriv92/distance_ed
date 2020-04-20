@@ -7,7 +7,7 @@ const Container = styled.div`
 
 const FirstSection = styled.div`
   flex: 50%;
-  height: calc(100vh - 60px);
+  height: calc(100vh - 100px);
   display: flex;
   flex-direction: row;
   align-items: flex-end;
@@ -15,7 +15,7 @@ const FirstSection = styled.div`
 
 const SecondSection = styled.div`
   flex: 50%;
-  height: calc(100vh - 60px);
+  height: calc(100vh - 100px);
   display: flex;
   flex-direction: row;
   align-items: center;

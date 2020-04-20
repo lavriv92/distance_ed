@@ -1,12 +1,34 @@
 import React, { useContext } from 'react';
+import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import { Menu, MenuItem, Icon, Classes } from '@blueprintjs/core';
 import Avatar from 'react-avatar';
 
 import { AuthContext } from '../../auth';
 
-import styles from './styles.module.scss';
-import { Popover } from '../../../theme/components';
+import { Popover, Icon, Menu } from '../../../theme/components';
+
+import UserIcon from '../../../theme/icons/user.svg';
+import IdCardIcon from '../../../theme/icons/id-card-1.svg';
+import SettingsIcon from '../../../theme/icons/settings-1.svg';
+
+const StyledLink = styled(Link)`
+  color: #000;
+  display: block;
+
+  &:hover {
+    text-decoration: none;
+    color: #000;
+  }
+`;
+
+const StyledAvatar = styled(Avatar)`
+  margin-right: 10px;
+`;
+
+const StyledLinkText = styled.span`
+  display: inline-block;
+  margin-left: 10px;
+`;
 
 const UserMenu = () => {
   const auth = useContext(AuthContext);
@@ -14,27 +36,34 @@ const UserMenu = () => {
   return (
     <Popover>
       <div>
-        <Avatar name="Ivan Lavriv" size="40" round="40px" />
-        <span className={styles.name}>Ivan Lavriv</span>
+        <StyledAvatar name="Ivan Lavriv" size="40" round="40px" />
+        <span>Ivan Lavriv</span>
       </div>
-      <div>
-        <Link className={Classes.MENU_ITEM} to="/cabinet/classrooms">
-          <Icon icon="user" />
-          <span className={Classes.MENU_ITEM_LABEL}>Мій кабінет</span>
-        </Link>
-        <Link className={Classes.MENU_ITEM} to="/profile">
-          <Icon icon="id-number" />
-          <span className={Classes.MENU_ITEM_LABEL}>Мій Профіль</span>
-        </Link>
-        <Link className={Classes.MENU_ITEM} to="/settings">
-          <Icon icon="settings" />
-          <span className={Classes.MENU_ITEM_LABEL}>Мої Налаштування</span>
-        </Link>
-        
-        <Link to="/auth/sign-in" onClick={auth.signOut}>
+      <Menu>
+        <Menu.Item>
+          <StyledLink to="/cabinet/classrooms">
+            <Icon icon={UserIcon} />
+            <StyledLinkText>Мій кабінет</StyledLinkText>
+          </StyledLink>
+        </Menu.Item>
+        <Menu.Item>
+        <StyledLink to="/profile">
+          <Icon icon={IdCardIcon} />
+          <StyledLinkText>Мій Профіль</StyledLinkText>
+        </StyledLink>
+        </Menu.Item>
+        <Menu.Item>
+        <StyledLink to="/settings">
+          <Icon icon={SettingsIcon} />
+          <StyledLinkText>Мої Налаштування</StyledLinkText>
+        </StyledLink>
+        </Menu.Item>
+        <Menu.Item>
+        <StyledLink to="/auth/sign-in" onClick={auth.signOut}>
           Вийти
-        </Link>
-      </div>
+        </StyledLink>
+        </Menu.Item>
+      </Menu>
     </Popover>
   );
 };

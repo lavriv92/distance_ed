@@ -6,3 +6,4 @@ export { default as FormGroup } from './FormGroup';
 export { default as Heading } from './Heading';
 export { default as Popover } from './Popover';
 export { default as Icon } from './Icon';
+export { default as Menu } from './Menu';
