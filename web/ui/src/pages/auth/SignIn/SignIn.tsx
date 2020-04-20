@@ -1,27 +1,10 @@
 import React, { useContext, useState } from 'react';
-import styled from 'styled-components';
 
 import { useForm } from '../../../modules/shared/hooks';
 import { AuthContext } from '../../../modules/auth';
 import ISignInData from '../../../interfaces/ISignInData';
 
-import { Input, Button } from '../../../theme/components';
-
-const Container = styled.div`
-  margin: 0 auto;
-`;
-
-const FormGroup = styled.div`
-  margin-bottom: 15px;
-  width: 400px;
-`;
-
-const Title = styled.h2`
-  text-align: center;
-  margin-bottom: 15px;
-  color: #16817a;
-  font-weight: 300;
-`;
+import { Input, Button, FormGroup, Heading } from '../../../theme/components';
 
 const SignIn = () => {
   const auth = useContext(AuthContext);
@@ -51,8 +34,8 @@ const SignIn = () => {
   };
 
   return (
-    <Container>
-      <Title>Логін</Title>
+    <>
+      <Heading centered>Логін</Heading>
       <FormGroup>
         <Input
           value={values.email}
@@ -69,10 +52,10 @@ const SignIn = () => {
           placeholder="Введіть свій пароль"
         />
       </FormGroup>
-      <Button disabled={loading} onClick={handleSubmit}>
+      <Button primary disabled={loading} onClick={handleSubmit}>
         Увійти
       </Button>
-    </Container>
+    </>
   );
 };
 

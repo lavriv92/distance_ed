@@ -21,14 +21,19 @@ const SecondSection = styled.div`
   align-items: center;
 `;
 
+const Wrapper = styled.div`
+  margin: 0 auto;
+  width: 400px;
+`;
+
 const AuthLayout: React.FC<any> = ({ children }) => {
   return (
     <Container>
       <FirstSection>
-        <img src="https://www.kindpng.com/picc/m/5-59689_school-cartoon-transparent-background-hd-png-download.png" />
+        <img alt="foo" src="https://www.kindpng.com/picc/m/5-59689_school-cartoon-transparent-background-hd-png-download.png" />
       </FirstSection>
       <SecondSection>
-        {children}
+        <Wrapper>{children}</Wrapper>
       </SecondSection>
     </Container>
   );

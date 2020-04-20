@@ -1,14 +1,11 @@
 import React, { useState } from 'react';
-import classNames from 'classnames';
 import { useHistory } from 'react-router-dom';
-import { Card, Button, Classes, Label, FormGroup } from '@blueprintjs/core';
 
 import { useForm } from '../../../modules/shared/hooks';
-import { Flex } from '../../../modules/shared/components';
 import ISignUpData from '../../../interfaces/ISignUpData';
 import { signUp } from '../../../modules/auth/api';
 
-import styles from "./SignUp.module.css";
+import { Heading, Input, Button, FormGroup } from '../../../theme/components';
 
 const SignUp = () => {
   const [loading, setLoading] = useState<boolean>(false);
@@ -30,10 +27,6 @@ const SignUp = () => {
     },
   );
 
-  const buttonClassName = classNames(Classes.MINIMAL, Classes.INTENT_SUCCESS, Classes.LARGE);
-  const inputClassName = classNames(Classes.INPUT, Classes.LARGE);
-  const cardClassName = classNames(styles.root, Classes.SMALL);
-
   const handleSubmit = async (e: any) => {
     e.preventDefault();
 
@@ -49,70 +42,54 @@ const SignUp = () => {
   };
 
   return (
-    <Card className={cardClassName}>
-      <h2>Реєстрація</h2>
-      <Flex>
-        <FormGroup inline>
-          <Label>
-            Електронна адреса <span className={Classes.INTENT_DANGER}>*</span>
-            <input
-              name="email"
-              value={values.email}
-              onChange={setValue}
-              className={inputClassName}
-              placeholder="me@example.com"
-            />
-          </Label>
-          <Label>
-            Пароль <span className={Classes.INTENT_DANGER}>*</span>
-            <input
-              name="password"
-              value={values.password}
-              onChange={setValue}
-              className={inputClassName}
-              type="password"
-              placeholder="Пароль"
-            />
-          </Label>
-          <Label>
-            Повторити пароль <span className={Classes.INTENT_DANGER}>*</span>
-            <input
-              name="passwordConfirmation"
-              value={values.passwordConfirmation}
-              onChange={setValue}
-              type="password"
-              className={inputClassName}
-              placeholder="Повторити пароль"
-            />
-          </Label>
-        </FormGroup>
-        <FormGroup inline>
-          <Label>
-            Ім'я
-            <input
-              name="firstName"
-              value={values.firstName}
-              onChange={setValue}
-              className={inputClassName}
-              placeholder="Ім'я"
-            />
-          </Label>
-          <Label>
-            Прізвище
-            <input
-              name="lastName"
-              value={values.lastName}
-              onChange={setValue}
-              className={inputClassName}
-              placeholder="Прізвище"
-            />
-          </Label>
-        </FormGroup>
-      </Flex>
-      <Button loading={loading} className={buttonClassName} onClick={handleSubmit}>
+    <>
+      <Heading centered>Реєстрація</Heading>
+      <FormGroup>
+        <Input
+          name="email"
+          value={values.email}
+          onChange={setValue}
+          placeholder="me@example.com"
+        />
+      </FormGroup>
+      <FormGroup>
+        <Input
+          name="password"
+          value={values.password}
+          onChange={setValue}
+          type="password"
+          placeholder="Пароль"
+        />
+      </FormGroup>
+      <FormGroup>
+        <Input
+          name="passwordConfirmation"
+          value={values.passwordConfirmation}
+          onChange={setValue}
+          type="password"
+          placeholder="Повторити пароль"
+        />
+      </FormGroup>
+      <FormGroup>
+        <Input
+          name="firstName"
+          value={values.firstName}
+          onChange={setValue}
+          placeholder="Ім'я"
+        />
+      </FormGroup>
+      <FormGroup>
+        <Input
+          name="lastName"
+          value={values.lastName}
+          onChange={setValue}
+          placeholder="Прізвище"
+        />
+      </FormGroup>
+      <Button primary disabled={loading} onClick={handleSubmit}>
         Зареєструватись
       </Button>
-    </Card>
+    </>
   );
 };
 

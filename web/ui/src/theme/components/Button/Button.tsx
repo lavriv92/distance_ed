@@ -1,9 +1,13 @@
-import React from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
+
+import colors from '../../colors';
+
+type ButtonProps = {
+  primary?: boolean;
+  secondary?: boolean;
+};
 
 const Button = styled.button`
-  background: #16817a;
-  color: #fff;
   border: none;
   height: 40px;
   line-height: 40px;
@@ -20,6 +24,11 @@ const Button = styled.button`
     pointer-events: none;
     cursor: progress;
   }
+
+  ${(props: ButtonProps) => props.primary && css`
+    background: ${colors.primary};
+    color: #fff;
+  `}
 `;
 
 export default Button;
