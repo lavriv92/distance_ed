@@ -1,10 +1,13 @@
 import React from 'react';
-import { Popover, Intent, Icon } from '@blueprintjs/core';
+
+
+import { Popover, Icon } from '../../../theme/components';
+import NotificationIcon from '../../../theme/icons/notification.svg';
 
 const Notifications: React.FC<{}> = () => {
   return (
     <Popover>
-      <Icon intent={Intent.PRIMARY} iconSize={20} icon="notifications-updated" />
+      <Icon icon={NotificationIcon}/>
       <div>notifications</div>
     </Popover>
   );
