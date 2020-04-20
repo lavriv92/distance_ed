@@ -2,9 +2,10 @@ import React, { FC, useState, useEffect, useCallback } from 'react';
 
 import { ClassroomsList } from '../../../modules/classrooms/components';
 import classroomsAPI from '../../../modules/classrooms';
+import { IClasstoom } from '../../../modules/classrooms/models';
 
 const Classrooms: FC<object> = () => {
-  const [classrooms, setClassrooms] = useState([]);
+  const [classrooms, setClassrooms] = useState<Array<IClasstoom>>([]);
 
   const fetchClassrooms = useCallback(async () => {
     const result = await classroomsAPI.api.getClassrooms();

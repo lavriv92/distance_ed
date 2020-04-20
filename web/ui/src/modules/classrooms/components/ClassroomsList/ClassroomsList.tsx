@@ -3,15 +3,10 @@ import React, { FC } from 'react';
 import ClassroomItem from '../ClassroomItem';
 
 import styles from './styles.module.scss';
+import { IClasstoom } from '../../models';
 
 type ClassroomsListProps = {
-  classrooms: Array<ClassroomItemProps>;
-};
-
-type ClassroomItemProps = {
-  ID: string;
-  Name: string;
-  Description: string;
+  classrooms: Array<IClasstoom>;
 };
 
 const ClassroomsList: FC<ClassroomsListProps> = ({ classrooms = [] }) => (

@@ -3,14 +3,9 @@ import { Link } from 'react-router-dom';
 import { Card, Elevation, Icon, Intent } from '@blueprintjs/core';
 
 import styles from './styles.module.scss';
+import { IClasstoom } from '../../models';
 
-type ClassroomItemProps = {
-  ID: string;
-  Name: string;
-  Description: string;
-};
-
-const ClassroomItem: FC<ClassroomItemProps> = ({ ID, Name, Description }) => (
+const ClassroomItem: FC<IClasstoom> = ({ ID, Name, Description }) => (
   <Card elevation={Elevation.ONE} className={styles.root}>
     <Link to={`/cabinet/classrooms/${ID}`}>
       <h3>

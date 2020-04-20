@@ -2,18 +2,14 @@ import React, { FC, useEffect, useCallback, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 import classroomsAPI from '../../../modules/classrooms';
+import { IClasstoom } from '../../../modules/classrooms/models';
 
 type ClassroomDetailsParams = {
   id: string;
 };
 
-type ClassroomStateProps = {
-  Name: string;
-  Description: string;
-} | null;
-
 const ClassroomDetails: FC<object> = () => {
-  const [classroom, setClassroom] = useState<ClassroomStateProps>(null);
+  const [classroom, setClassroom] = useState<IClasstoom | null>(null);
   const params = useParams<ClassroomDetailsParams>();
 
   const fetchClassroom = useCallback(async () => {
