@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import colors from '../../colors';
 
 const Item = styled.li`
   margin: 0;
@@ -8,7 +9,7 @@ const Item = styled.li`
   display: block;
 
   &:hover {
-    background: #f6f6f6;
+    background: ${colors.secondary};
     border-radius: 10px;
   }
 `;

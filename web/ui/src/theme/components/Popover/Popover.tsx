@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import styled, { css } from 'styled-components';
+import colors from '../../colors';
 
 type HeaderProps = {
   active: boolean
@@ -14,14 +15,14 @@ const Header = styled.div`
   cursor: pointer;
   padding: 10px 15px;
   ${(props: HeaderProps) => props.active && css`
-    background: #fff;
+    background: ${colors.lightorange};
     border-radius: 10px 10px 0 0;
     border-bottom: none;
   `}
 `;
 
 const Body = styled.div`
-  background: #fff;
+  background: ${colors.lightorange};
   position: absolute;
   padding: 15px;
   width: auto;
@@ -34,12 +35,27 @@ const Body = styled.div`
 
 const Popover: React.FC<any> = ({ children }) => {
   const [visible, setVisible] = useState<boolean>(false);
+  const ref = useRef<any>(null);
 
   const [ heading, body ] = children;
-
   const toggle = () => setVisible(!visible);
 
-  return <PopoverWrapper>
+  useEffect(() => {
+    function outsideClick(e: any) {
+      if(ref.current && !ref.current.contains(e.target)) {
+        setVisible(false);
+      }
+    }
+
+    window.addEventListener('click', outsideClick);
+
+    return () => {
+      window.removeEventListener('click', outsideClick);
+    }
+    
+  }, [ref]);
+
+  return <PopoverWrapper ref={ref}>
     <Header active={visible} onClick={toggle}>{heading}</Header> 
     {visible && <Body>{body}</Body>}
   </PopoverWrapper>
