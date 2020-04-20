@@ -1,10 +1,10 @@
 import { useState } from 'react';
 
-const useForm = (defaultValues = {}, validators = {}) => {
-  const [values, setValues] = useState<Object>(defaultValues);
+const useForm = <T>(defaultValues: T, validators = {}) => {
+  const [values, setValues] = useState<T>(defaultValues);
   const [errors] = useState({});
 
-  const setValue = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const setValue = (e: React.ChangeEvent<HTMLInputElement>): void => {
     e.persist();
 
     const { name, value } = e.target;
