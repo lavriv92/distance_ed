@@ -1,12 +1,27 @@
 import React, { useContext, useState } from 'react';
-import classNames from 'classnames';
-import { Card, Label, Classes, Button } from '@blueprintjs/core';
+import styled from 'styled-components';
 
 import { useForm } from '../../../modules/shared/hooks';
 import { AuthContext } from '../../../modules/auth';
-
-import styles from './SignIn.module.css';
 import ISignInData from '../../../interfaces/ISignInData';
+
+import { Input, Button } from '../../../theme/components';
+
+const Container = styled.div`
+  margin: 0 auto;
+`;
+
+const FormGroup = styled.div`
+  margin-bottom: 15px;
+  width: 400px;
+`;
+
+const Title = styled.h2`
+  text-align: center;
+  margin-bottom: 15px;
+  color: #16817a;
+  font-weight: 300;
+`;
 
 const SignIn = () => {
   const auth = useContext(AuthContext);
@@ -23,9 +38,6 @@ const SignIn = () => {
     },
   );
 
-  const buttonClassName = classNames(Classes.MINIMAL, Classes.INTENT_SUCCESS, Classes.LARGE);
-  const inputClassName = classNames(Classes.INPUT, Classes.LARGE);
-
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     try {
@@ -39,36 +51,28 @@ const SignIn = () => {
   };
 
   return (
-    <Card className={styles.root}>
-      <h2>Увійти</h2>
-
-      <div>
-        <Label>
-          Електронна адреса<span>*</span>
-          <input
-            className={inputClassName}
-            value={values.email}
-            name="email"
-            onChange={setValue}
-            placeholder="me@example.com"
-          />
-        </Label>
-        <Label>
-          Пароль<span>*</span>
-          <input
-            className={inputClassName}
-            value={values.password}
-            name="password"
-            onChange={setValue}
-            type="password"
-            placeholder="Введіть свій пароль"
-          />
-        </Label>
-      </div>
-      <Button loading={loading} className={buttonClassName} onClick={handleSubmit}>
+    <Container>
+      <Title>Логін</Title>
+      <FormGroup>
+        <Input
+          value={values.email}
+          name="email"
+          onChange={setValue}
+          placeholder="me@example.com"
+        />
+      </FormGroup>
+      <FormGroup>
+        <Input
+          name="password"
+          onChange={setValue}
+          type="password"
+          placeholder="Введіть свій пароль"
+        />
+      </FormGroup>
+      <Button disabled={loading} onClick={handleSubmit}>
         Увійти
       </Button>
-    </Card>
+    </Container>
   );
 };
 

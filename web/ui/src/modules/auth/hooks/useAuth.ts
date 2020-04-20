@@ -1,8 +1,9 @@
 import { useHistory } from 'react-router-dom';
 import { Toaster, Intent, Position } from '@blueprintjs/core';
 
-import { api } from '../../shared/utils';
 import { useLocalStorage } from '../../shared/hooks';
+
+import * as api from '../api';
 
 import ISignInData from '../../../interfaces/ISignInData';
 import ISignResponse from '../../../interfaces/ISignInResponse';
@@ -22,7 +23,7 @@ const useAuth = () => {
 
   const signIn = async (signInData: ISignInData): Promise<void> => {
     try {
-      const userData: ISignResponse = await api.post('/auth/token', signInData);
+      const userData: ISignResponse = await api.signIn(signInData);
       setToken(userData.token);
       history.replace('/cabinet');
     } catch (err) {

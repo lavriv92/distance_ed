@@ -4,11 +4,11 @@ import { useHistory } from 'react-router-dom';
 import { Card, Button, Classes, Label, FormGroup } from '@blueprintjs/core';
 
 import { useForm } from '../../../modules/shared/hooks';
-import { Flex as FlexBox } from '../../../modules/shared/components';
-import { api } from '../../../modules/shared/utils';
+import { Flex } from '../../../modules/shared/components';
 import ISignUpData from '../../../interfaces/ISignUpData';
+import { signUp } from '../../../modules/auth/api';
 
-import styles from './SignUp.module.css';
+import styles from "./SignUp.module.css";
 
 const SignUp = () => {
   const [loading, setLoading] = useState<boolean>(false);
@@ -39,7 +39,7 @@ const SignUp = () => {
 
     try {
       setLoading(true);
-      await api.post('/auth/users', values);
+      await signUp(values);
       history.replace('/auth/sign-in');
     } catch (err) {
       console.log(err);
@@ -51,7 +51,7 @@ const SignUp = () => {
   return (
     <Card className={cardClassName}>
       <h2>Реєстрація</h2>
-      <FlexBox>
+      <Flex>
         <FormGroup inline>
           <Label>
             Електронна адреса <span className={Classes.INTENT_DANGER}>*</span>
@@ -108,7 +108,7 @@ const SignUp = () => {
             />
           </Label>
         </FormGroup>
-      </FlexBox>
+      </Flex>
       <Button loading={loading} className={buttonClassName} onClick={handleSubmit}>
         Зареєструватись
       </Button>

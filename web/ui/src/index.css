@@ -2,6 +2,11 @@
   outline: none;
 }
 
-html, body {
+html,
+body {
   min-height: 100%;
+}
+
+body {
+  background: #f7f7f7;
 }

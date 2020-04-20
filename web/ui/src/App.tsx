@@ -23,7 +23,6 @@ function App() {
           <main className={styles.main}>
             <Switch>{routes}</Switch>
           </main>
-          <Footer />
         </div>
         </AuthProvider>
       </Router>

@@ -1,46 +1,59 @@
 import React, { useContext } from 'react';
-import classNames from 'classnames';
-import { Navbar, Alignment, Classes } from '@blueprintjs/core';
+import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
 import { AuthContext } from '../../auth';
-
-import styles from './Header.module.css';
+import { Navbar } from '../../../theme/components';
 
 import UserMenu from '../UserMenu';
 import Chat from '../Chat';
 import Notifications from '../Notifications';
 
+const Brand = styled(Link)`
+  color: #f79071;
+  text-decoration: none;
+  font-size: 45px;
+  font-weight: 300;
+
+  &:hover {
+    text-decoration: none;
+    color: #f79071;
+  }
+`;
+
+const Second = styled.strong`
+  color: #16817a;
+  font-weight: 900;
+`;
+
+const SignInLink = styled(Link)`
+  display: inline-block;
+  margin: 0 10px;
+`;
+
 const Header: React.FC<any> = () => {
   const auth = useContext(AuthContext);
 
-  const linkClassName: string = classNames(Classes.BUTTON, Classes.MINIMAL);
-
   return (
     <Navbar>
-      <Navbar.Group align={Alignment.LEFT}>
-        <Navbar.Heading>
-          <Link className={styles.brand} to="/">
-            <strong>DistanceED</strong>
-          </Link>
-        </Navbar.Heading>
-        <Navbar.Divider />
-      </Navbar.Group>
+      <Brand to="/">
+        Distance<Second>ED</Second>
+      </Brand>
       {auth.isAuthenticated ? (
-        <Navbar.Group align={Alignment.RIGHT}>
+        <div>
           <Notifications />
           <Chat />
           <UserMenu />
-        </Navbar.Group>
+        </div>
       ) : (
-        <Navbar.Group align={Alignment.RIGHT}>
-          <Link to="/auth/sign-in" className={linkClassName}>
+        <div>
+          <SignInLink to="/auth/sign-in">
             Увійти
-          </Link>
-          <Link to="/auth/sign-up" className={linkClassName}>
+          </SignInLink>
+          <SignInLink to="/auth/sign-up">
             Зареєструватись
-          </Link>
-        </Navbar.Group>
+          </SignInLink>
+        </div>
       )}
     </Navbar>
   );
