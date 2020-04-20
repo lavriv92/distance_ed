@@ -5,7 +5,7 @@ import Main from './Main';
 import Classrooms from './Classrooms';
 import ClassroomDetails from './ClassroomDetails';
 
-const CabineRoutes = ({ match }) => (
+const CabineRoutes: React.FC<any> = ({ match }) => (
   <Main>
     <Route path={`${match.path}/classrooms`} exact component={Classrooms} />
     <Route path={`${match.path}/classrooms/:id`} component={ClassroomDetails} />
