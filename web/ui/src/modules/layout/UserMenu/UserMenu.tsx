@@ -10,6 +10,7 @@ import { Popover, Icon, Menu } from '../../../theme/components';
 import UserIcon from '../../../theme/icons/user.svg';
 import IdCardIcon from '../../../theme/icons/id-card-1.svg';
 import SettingsIcon from '../../../theme/icons/settings-1.svg';
+import ExitIcon from '../../../theme/icons/exit.svg';
 
 const StyledLink = styled(Link)`
   color: #000;
@@ -49,19 +50,20 @@ const UserMenu = () => {
         <Menu.Item>
         <StyledLink to="/profile">
           <Icon icon={IdCardIcon} />
-          <StyledLinkText>Мій Профіль</StyledLinkText>
+          <StyledLinkText>Мій профіль</StyledLinkText>
         </StyledLink>
         </Menu.Item>
         <Menu.Item>
         <StyledLink to="/settings">
           <Icon icon={SettingsIcon} />
-          <StyledLinkText>Мої Налаштування</StyledLinkText>
+          <StyledLinkText>Мої налаштування</StyledLinkText>
         </StyledLink>
         </Menu.Item>
         <Menu.Item>
-        <StyledLink to="/auth/sign-in" onClick={auth.signOut}>
-          Вийти
-        </StyledLink>
+          <StyledLink to="/auth/sign-in" onClick={auth.signOut}>
+            <Icon icon={ExitIcon}/>
+            <StyledLinkText>Вийти</StyledLinkText>
+          </StyledLink>
         </Menu.Item>
       </Menu>
     </Popover>

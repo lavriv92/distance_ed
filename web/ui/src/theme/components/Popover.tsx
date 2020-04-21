@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import styled, { css } from 'styled-components';
-import colors from '../../colors';
+import colors from '../colors';
 
 type HeaderProps = {
   active: boolean
