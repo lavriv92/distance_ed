@@ -6,7 +6,6 @@ import {
 
 import {
   Header,
-  Footer
 }  from './modules/layout';
 import { AuthProvider } from './modules/auth';
 

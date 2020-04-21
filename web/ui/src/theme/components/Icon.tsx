@@ -7,6 +7,7 @@ type StyledIconProps = {
 
 type IconProps = {
   icon: string,
+  large?: boolean
 };
 
 const StyledIcon = styled.img`
@@ -14,10 +15,10 @@ const StyledIcon = styled.img`
   margin-bottom: -7px;
 
   ${(props: StyledIconProps) => props.large && css`
-    width: 40px;
+    width: 30px;
   `}
 `;
 
-const Icon: React.FC<IconProps> = ({ icon, ...restProps }) => <StyledIcon src={icon} {...restProps} />;
+const Icon: React.FC<IconProps> = ({ icon, large, ...restProps }) => <StyledIcon src={icon} large={large} {...restProps} />;
 
 export default Icon;
