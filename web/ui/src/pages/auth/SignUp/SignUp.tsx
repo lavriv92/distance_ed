@@ -6,10 +6,12 @@ import ISignUpData from '../../../interfaces/ISignUpData';
 import { signUp } from '../../../modules/auth/api';
 
 import { Heading, Input, Button, FormGroup } from '../../../theme/components';
+import { useToast } from '../../../modules/toast/hooks';
 
 const SignUp = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const history = useHistory();
+  const toast = useToast();
   const { values, setValue } = useForm<ISignUpData>(
     {
       email: '',
@@ -35,7 +37,7 @@ const SignUp = () => {
       await signUp(values);
       history.replace('/auth/sign-in');
     } catch (err) {
-      console.log(err);
+      toast.danger('Error when sign up');
     } finally {
       setLoading(false);
     }

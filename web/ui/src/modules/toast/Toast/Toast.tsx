@@ -3,10 +3,11 @@ import styled, { keyframes, css } from 'styled-components';
 import { darken } from 'polished';
 
 import colors from '../../../theme/colors';
+import { strings } from '../../../utils';
 
 import { IToast } from '../models';
 import { ToastType } from '../enums';
-import { strings } from '../../../utils';
+
 
 const toastAnimation = keyframes`
   from {
