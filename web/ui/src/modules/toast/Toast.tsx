@@ -8,12 +8,12 @@ import { IToast } from './models';
 import { ToastType } from './enums';
 import { strings } from '../../utils';
 
-const fadeAnimation = keyframes`
+const toastAnimation = keyframes`
   from {
-    opacity: 0;
+    transform: translateX(100%);
   }
   to {
-    opacity: 1; 
+    transfom: translateX(0);
   }
 `;
 
@@ -28,7 +28,8 @@ const StyledToast = styled.div`
   padding: 15px 30px;
   display: flex;
   align-items: center;
-  animation: ${fadeAnimation} .5s linear;
+  transition: transform .6s ease-in;
+  animation: ${toastAnimation} .3s linear;
   cursor: pointer;
 
   ${(props: StyledToastProps) => props.type === ToastType.SUCCESS && css`

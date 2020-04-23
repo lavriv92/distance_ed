@@ -1,12 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 
-import Toast from './Toast';
 import { IToast } from './models';
 import { identity } from '../../utils';
+import ToastList from './ToastsList';
 
 const ToastWrapper = styled.div`
-  position: absolute;
+  position: fixed;
+  box-sizing: border-box;
   z-index: 1;
   top: 10px;
   right: 10px;
@@ -14,29 +15,27 @@ const ToastWrapper = styled.div`
 `;
 
 export const ToastContext = React.createContext({
-  addToast: (toast: any) => {}
+  addToast: async (toast: any) => {}
 });
 
 const ToastProvider: React.FC<any> = ({ children }) => {
-  const [toastList, setToastList] = useState<Array<IToast>>([]);
+  const [toasts, setToasts] = useState<Array<IToast>>([]);
 
-  useEffect(() => {
-    console.log('safdsa');
-  }, [toastList]);
-
-  const addToast = (toast: IToast) => {
-    setToastList([{ id: identity.ID(), ...toast }, ...toastList]);
+  const addToast = async (toast: IToast) => {
+    const id = identity.ID();
+    setToasts([...toasts, { id, ...toast }]);
   };
 
   const removeToast = (id: string) => {
-    const newToasts = toastList.filter(toast => toast.id !== id);
-    setToastList(newToasts)
+    const index = toasts.findIndex(e => e.id === id);
+    toasts.splice(index, 1);
+    setToasts([...toasts]);
   };
 
   return <ToastContext.Provider value={{ addToast }}>
     {children}
     <ToastWrapper>
-      {toastList.map((toast) => <Toast {...toast} key={toast.id} onRemove={removeToast} />)}
+      <ToastList toasts={toasts} setToasts={setToasts} onRemove={removeToast} />
     </ToastWrapper>
   </ToastContext.Provider>
 };
