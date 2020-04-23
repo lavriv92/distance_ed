@@ -1,20 +1,19 @@
 import React from 'react';
-import { createGlobalStyle } from 'styled-components';
+import styled, { createGlobalStyle } from 'styled-components';
 import { BrowserRouter as Router, Switch } from 'react-router-dom';
 
-import { Header} from './modules/layout';
+import { Header } from './modules/layout';
 import { AuthProvider } from './modules/auth';
 
 import routes from './pages/routes';
 
-import styles from './App.module.css'
 import { ToastProvider } from './modules/toast';
 import colors from './theme/colors';
 
 const GlobalStyles = createGlobalStyle`
   * {
     outline: none;
-    font-family: 'Roboto Mono', sans-serif;
+    font-family: 'RobotoMono', sans-serif;
   }
 
   html,
@@ -36,18 +35,28 @@ const GlobalStyles = createGlobalStyle`
   }
 `;
 
+const StyledRoot = styled.div`
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  font-family: "Roboto" sans-serif;
+`;
+
+const StyledMain = styled.main`
+  flex: 1;
+`;
+
 function App() {
   return (
       <Router>
         <ToastProvider>
           <AuthProvider>
-          
-            <div className={styles.root}>
+            <StyledRoot>
               <Header />
-              <main className={styles.main}>
+              <StyledMain>
                 <Switch>{routes}</Switch>
-              </main>
-            </div>
+              </StyledMain>
+            </StyledRoot>
             <GlobalStyles />
           </AuthProvider>
         </ToastProvider>
