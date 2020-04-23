@@ -1,4 +1,4 @@
-import { api } from '../shared/utils';
+import { api } from '../../utils';
 
 export function getClassrooms(): Promise<any> {
   return api.get('/v1/classrooms');

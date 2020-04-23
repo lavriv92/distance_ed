@@ -12,18 +12,21 @@ import { AuthProvider } from './modules/auth';
 import routes from './pages/routes';
 
 import styles from './App.module.css'
+import { ToastProvider } from './modules/toast';
 
 function App() {
   return (
       <Router>
-        <AuthProvider>
-        <div className={styles.root}>
-          <Header />
-          <main className={styles.main}>
-            <Switch>{routes}</Switch>
-          </main>
-        </div>
-        </AuthProvider>
+        <ToastProvider>
+          <AuthProvider>
+          <div className={styles.root}>
+            <Header />
+            <main className={styles.main}>
+              <Switch>{routes}</Switch>
+            </main>
+          </div>
+          </AuthProvider>
+        </ToastProvider>
       </Router>
       
   );

@@ -7,10 +7,11 @@ const Item = styled.li`
   margin-bottom: 15px;
   list-style: none;
   display: block;
+  transition: background .2s;
+  border-radius: 10px;
 
   &:hover {
     background: ${colors.secondary};
-    border-radius: 10px;
   }
 `;
 

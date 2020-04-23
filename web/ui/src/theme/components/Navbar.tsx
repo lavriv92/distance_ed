@@ -2,10 +2,11 @@ import styled from 'styled-components';
 
 const Navbar = styled.div`
   display: flex;
-  height: 100px;
+  height: 60px;
   padding: 0 10px;
   align-items: center;
   justify-content: space-between;
+  background: #fff;
 `;
 
 export default Navbar;

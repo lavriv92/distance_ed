@@ -16,6 +16,7 @@
     "@types/styled-components": "^5.1.0",
     "axios": "^0.19.2",
     "classnames": "^2.2.6",
+    "polished": "^3.5.2",
     "react": "^16.13.1",
     "react-avatar": "^3.9.2",
     "react-dom": "^16.13.1",

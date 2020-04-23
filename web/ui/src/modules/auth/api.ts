@@ -1,5 +1,5 @@
 import ISignUpData from '../../interfaces/ISignUpData';
-import { api } from '../shared/utils';
+import { api } from '../../utils';
 import ISignInData from '../../interfaces/ISignInData';
 
 export function signUp(signUpData: ISignUpData): Promise<any> {
