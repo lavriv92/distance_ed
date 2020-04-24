@@ -31,6 +31,12 @@ const StyledLinkText = styled.span`
   margin-left: 10px;
 `;
 
+const StyledName = styled.span`
+  @media (max-width: 768px) {
+    display: none;
+  }
+`;
+
 const UserMenu = () => {
   const auth = useContext(AuthContext);
 
@@ -38,7 +44,7 @@ const UserMenu = () => {
     <Popover>
       <div>
         <StyledAvatar name="Ivan Lavriv" size="40" round="40px" />
-        <span>Ivan Lavriv</span>
+        <StyledName>Ivan Lavriv</StyledName>
       </div>
       <Menu>
         <Menu.Item>

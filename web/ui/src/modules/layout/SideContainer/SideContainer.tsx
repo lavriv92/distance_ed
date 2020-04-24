@@ -1,9 +1,8 @@
-import React from 'react';
+import styled from 'styled-components';
 
-import styles from './styles.module.scss';
-
-const SideContainer: React.FC<any> = ({ children }) => {
-  return <div className={styles.root}>{children}</div>;
-};
+const SideContainer = styled.div`
+  margin: 30px 15px;
+  width: 100%;
+`;
 
 export default SideContainer;

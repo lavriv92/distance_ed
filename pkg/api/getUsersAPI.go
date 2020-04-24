@@ -12,7 +12,7 @@ func (api *API) getUsersAPI(c *gin.Context) {
 	users, err := usersService.GetAllUsers()
 
 	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{
+		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{
 			"error": "error",
 		})
 		return

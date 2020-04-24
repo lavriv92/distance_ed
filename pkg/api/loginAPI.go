@@ -18,20 +18,20 @@ func (api *API) loginAPI(c *gin.Context) {
 	var loginJSON *loginPayload
 
 	if err := c.ShouldBindJSON(&loginJSON); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-		c.Abort()
+		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
 	}
 
 	user, err := users.NewUserService(api.db).GetUserByEmail(loginJSON.Email)
 
 	if err != nil {
-		c.JSON(http.StatusBadGateway, gin.H{"message": err.Error()})
-		c.Abort()
+		c.AbortWithStatusJSON(http.StatusBadGateway, gin.H{"message": err.Error()})
+		return
 	}
 
 	if !utils.ValidatePassword(user.PasswordHash, loginJSON.Password) {
-		c.JSON(http.StatusUnauthorized, gin.H{"message": "User not authorized"})
-		c.Abort()
+		c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"message": "User not authorized"})
+		return
 	}
 
 	token := jwt.NewWithClaims(jwt.SigningMethodHS512, jwt.MapClaims{
@@ -41,8 +41,8 @@ func (api *API) loginAPI(c *gin.Context) {
 	stringToken, err := token.SignedString([]byte(api.config.TokenSecret))
 
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
-		c.Abort()
+		c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
 	}
 
 	c.JSON(http.StatusOK, gin.H{"token": stringToken, "user": user})

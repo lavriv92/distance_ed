@@ -3,6 +3,10 @@ import styled from 'styled-components';
 
 const Container = styled.div`
   display: flex;
+
+  @media (max-width: 768px) {
+    align-items: center;
+  }
 `;
 
 const FirstSection = styled.div`
@@ -11,6 +15,10 @@ const FirstSection = styled.div`
   display: flex;
   flex-direction: row;
   align-items: flex-end;
+
+  @media (max-width: 768px) {
+    display: none;
+  }
 `;
 
 const SecondSection = styled.div`
@@ -24,6 +32,10 @@ const SecondSection = styled.div`
 const Wrapper = styled.div`
   margin: 0 auto;
   width: 400px;
+
+  @media (max-width: 768px) {
+    width: 300px;
+  }
 `;
 
 const AuthLayout: React.FC<any> = ({ children }) => {

@@ -13,8 +13,8 @@ func (api *API) classRoomsAPI(c *gin.Context) {
 	classrooms, err := classrooms.NewClassroomService(api.db).GetUserClassrooms(currentUser.ID)
 
 	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"err": err.Error()})
-		c.Abort()
+		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"err": err.Error()})
+		return
 	}
 
 	c.JSON(http.StatusOK, gin.H{"classrooms": classrooms})

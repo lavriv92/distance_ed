@@ -15,16 +15,14 @@ type classroomPayload struct {
 
 func (api *API) createClassroomAPI(c *gin.Context) {
 	var classroomJSON classroomPayload
-
 	err := c.ShouldBindJSON(&classroomJSON)
 
 	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-		c.Abort()
+		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
 	}
 
 	currentUser := c.MustGet("currentUser").(*users.User)
-
 	createdClassRoom, err := classrooms.NewClassroomService(api.db).Persist(&classrooms.Classroom{
 		Name:        classroomJSON.Name,
 		Description: classroomJSON.Description,
@@ -32,8 +30,8 @@ func (api *API) createClassroomAPI(c *gin.Context) {
 	})
 
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
-		c.Abort()
+		c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
 	}
 
 	c.JSON(http.StatusCreated, gin.H{"classroom": createdClassRoom})

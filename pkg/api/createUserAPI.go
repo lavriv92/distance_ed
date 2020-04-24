@@ -20,20 +20,20 @@ type userPayload struct {
 func (api *API) createUserAPI(c *gin.Context) {
 	var userJSON userPayload
 	if err := c.ShouldBindJSON(&userJSON); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-		c.Abort()
+		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
 	}
 
 	if userJSON.Password != userJSON.PasswordConfirmation {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "Password mismatch"})
-		c.Abort()
+		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": "Password mismatch"})
+		return
 	}
 
 	encryptedPassword, err := utils.EncryptPassword(userJSON.Password)
 
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"message": err.Error()})
-		c.Abort()
+		c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"message": err.Error()})
+		return
 	}
 
 	createdUser, err := users.NewUserService(api.db).Persist(&users.User{
@@ -44,8 +44,8 @@ func (api *API) createUserAPI(c *gin.Context) {
 	})
 
 	if err != nil {
-		c.JSON(http.StatusConflict, gin.H{"error": err.Error()})
-		c.Abort()
+		c.AbortWithStatusJSON(http.StatusConflict, gin.H{"error": err.Error()})
+		return
 	}
 
 	c.JSON(http.StatusCreated, createdUser)

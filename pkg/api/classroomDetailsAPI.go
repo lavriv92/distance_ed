@@ -11,8 +11,8 @@ func (api *API) classroomDetailsAPI(c *gin.Context) {
 	classroom, err := classrooms.NewClassroomService(api.db).GetClassroomDetails(c.Param("id"))
 
 	if err != nil {
-		c.JSON(http.StatusNotFound, gin.H{"error": err.Error()})
-		c.Abort()
+		c.AbortWithStatusJSON(http.StatusNotFound, gin.H{"error": err.Error()})
+		return
 	}
 
 	c.JSON(http.StatusOK, gin.H{"classroom": classroom})

@@ -15,8 +15,8 @@ func (api *API) authMiddleware(c *gin.Context) {
 	tokenData := strings.Split(authTokenHeader, " ")
 
 	if len(tokenData) != 2 {
-		c.JSON(http.StatusBadRequest, gin.H{"message": "Token should be provided"})
-		c.Abort()
+		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"message": "Token should be provided"})
+		return
 	}
 
 	token, err := jwt.Parse(tokenData[1], func(token *jwt.Token) (interface{}, error) {
@@ -24,23 +24,22 @@ func (api *API) authMiddleware(c *gin.Context) {
 	})
 
 	if err != nil {
-		c.JSON(http.StatusUnauthorized, gin.H{"message": "Unauthorized"})
-		c.Abort()
+		c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"message": "Unauthorized"})
+		return
 	}
 
 	claims, ok := token.Claims.(jwt.MapClaims)
 
 	if !ok || !token.Valid {
-		c.JSON(http.StatusUnauthorized, gin.H{"message": "unauthorized"})
-		c.Abort()
+		c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"message": "unauthorized"})
 	}
 
 	userService := users.NewUserService(api.db)
 	user, err := userService.GetUserByID(claims["userID"])
 
 	if err != nil {
-		c.JSON(http.StatusUnauthorized, gin.H{"message": "Unauthorized"})
-		c.Abort()
+		c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"message": "Unauthorized"})
+		return
 	}
 
 	c.Set("currentUser", user)

@@ -19,6 +19,10 @@ const Brand = styled(Link)`
     text-decoration: none;
     color: #f79071;
   }
+
+  @media (max-width: 768px) {
+    font-size: 24px;
+  }
 `;
 
 const Second = styled.strong`
